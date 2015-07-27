@@ -224,6 +224,26 @@ class Devices(object):
                 return device
         else:
             raise DeviceNotFound(devid)
+            
+
+    def select_model_name(self, model_name):
+        """
+        Return a Device list based on the model name.
+
+        @param model_name: The "Model Name" to search for.
+        @type devid: unicode
+        @raise DeviceNotFound:
+        """
+        _unicode_check(u'Model Name', model_name)
+        l = list()
+        for value in self.devids.values():
+            if (value.model_name == model_name):
+                l.append(value)
+               
+        if (len(l) == 0):
+            raise DeviceNotFound(devid)
+        else:
+            return l
 
     def add_group(self, group):
         """
