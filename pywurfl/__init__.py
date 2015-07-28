@@ -226,24 +226,78 @@ class Devices(object):
             raise DeviceNotFound(devid)
             
 
-    def select_model_name(self, model_name):
+    def select_android_info(self, brand, model_name):
         """
         Return a Device list based on the model name.
 
         @param model_name: The "Model Name" to search for.
-        @type devid: unicode
+        @type model_name: unicode
         @raise DeviceNotFound:
         """
-        _unicode_check(u'Model Name', model_name)
-        l = list()
+        
+        return_list = list()
+        
+        model_name_list = list()
+        model_name_list.append(model_name)
+        
+        brand = brand.lower()
+        if (brand == 'samsung'):
+            if (model_name.startswith('SAMSUNG-')):
+                model_name_list.append(model_name.split('SAMSUNG-')[1])
+        elif (brand == 'lge'):
+            if (model_name.startswith('LG-')):
+                model_name_list.append(model_name.split('LG-')[1])
+            if (model_name.startswith('LG')):
+                model_name_list.append(model_name.split('LG')[1])
+            if (model_name.startswith('LG')):
+                model_name_list.append(u'LG/' + model_name.split('LG')[1])
+        elif (brand == 'huawei'):
+            if (model_name.startswith('Huawei ')):
+                model_name_list.append(model_name.split('Huawei ')[1])
+            if (model_name.startswith('HUAWEI ')):
+                model_name_list.append(model_name.split('HUAWEI ')[1])
+        elif (brand == 'lenovo'): 
+            if (model_name.startswith('Lenovo')):
+                model_name_list.append(model_name.split('Lenovo')[1]) 
+            if (model_name.startswith('Lenovo ')):
+                model_name_list.append(model_name.split('Lenovo ')[1])
+        elif (brand.lower() == 'tct'):
+            if (model_name.startswith('ALCATEL ONE TOUCH ')):
+                model_name_list.append(u'OT-'+model_name.split('ALCATEL ONE TOUCH ')[1])
+            if (model_name.startswith('ONE TOUCH ')):
+                model_name_list.append(u'OT-'+model_name.split('ONE TOUCH ')[1])
+            if (model_name.startswith('ALCATEL ')):
+                model_name_list.append(model_name.split('ALCATEL ')[1])
+        elif (brand == 'htc_europe' or brand == 'htc' ):
+            if (model_name.startswith('HTC ')):
+                model_name_list.append(model_name.split('HTC ')[1])
+            if (model_name == u'HTC One_M8'):
+                model_name_list.append(u'M8')
+            if (model_name == u'HTC One'):
+                model_name_list.append(u'PN07120')
+            if (model_name.startswith('HTC ') and model_name.endswith(' dual sim')):
+                 model_name_list.append((model_name.split('HTC ')[1]).split(' dual sim')[0])
+        elif (brand == 'alps'):
+            if (len(model_name.split(' ')) > 1):
+                model_name_list.append(model_name.split(' ')[1])
+        elif (brand == 'asus'):
+            if (model_name.startswith('ASUS_-')):
+                model_name_list.append(model_name.split('ASUS_-')[1]) 
+        elif (brand == 'myphone'):
+            if (model_name.startswith('MyPhone ')):
+                model_name_list.append(model_name.split('MyPhone ')[1]) 
+        
+        for m in model_name_list:
+            _unicode_check(u'Model Name', m)
+            
         for value in self.devids.values():
-            if (value.model_name == model_name):
-                l.append(value)
-               
-        if (len(l) == 0):
-            raise DeviceNotFound(devid)
+            for m in model_name_list:
+                if (value.model_name.lower() == m.lower()):
+                    return_list.append(value)
+        if (len(return_list) == 0):
+            raise DeviceNotFound(model_name)
         else:
-            return l
+            return return_list
 
     def add_group(self, group):
         """
