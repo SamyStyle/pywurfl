@@ -61,7 +61,7 @@ class DeviceHandler(object):
         @type device: elementtree.Element
         """
 
-        self.devua = device.attrib[u"user_agent"]
+        self._devua = device.attrib[u"user_agent"]
         self.devid = device.attrib[u"id"]
         self.parent = device.attrib[u"fall_back"]
         if (u"actual_device_root" in device.attrib and
@@ -70,6 +70,15 @@ class DeviceHandler(object):
         else:
             self.actual_device_root = False
         self.capabilities = {}
+
+    @property
+    def devua(self):
+        #BackslashEscaped
+        return self._devua.replace("\\", "\\\\")
+
+    @devua.setter
+    def devua(self, value):
+        self._devua = value
 
 
 class WurflProcessor(object):
