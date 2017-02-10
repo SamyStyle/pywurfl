@@ -2,16 +2,23 @@
 
 <a href="http://celljam.net/api/index.html" title="pywurfl">pywurfl</a> is a <a href="http://www.python.org/" title="Python">Python</a> language package that makes dealing with the <a href="http://wurfl.sourceforge.net/" title="WURFL">WURFL</a> in Python a little easier. It contains tools that allow you to retrieve objects that represent devices defined in the WURFL or manipulate the WURFL device hierarchy by using a simple set of <a href="http://celljam.net/api/index.html" title="API documentation">API</a> functions or a pywurfl specific <a href="http://celljam.net/#query" title="Query Language">query language</a>. Also included within the package is a <a href="http://celljam.net/#processor" title="WURFL processor">WURFL processor</a> class that provides an event based API that can be used to alleviate some of the work when processing the WURFL sequentially.
 
-###Requires
+## Instaltion
+
+<code>pip install git+https://github.com/SamyStyle/pywurfl</code>
+
+
+####Requires
 Python >= 2.6
 
-### Required Modules
+
+#### Required Modules
 <a href="http://pypi.python.org/pypi/python-Levenshtein/" title="Levenshtein Module">Levenshtein Module</a> &gt;= 0.10.1 is required for the user agent similarity algorithms.
 
-### Optional Modules
+#### Optional Modules
 <a href="http://pyparsing.wikispaces.com/" title="pyparsing">pyparsing</a> &gt;= 1.5 is required if you want to use the pywurfl query language.
 
-### Scripts
+
+### Get the latest WURFL XML 
 The pywurfl package contains a wurfl2python.py script that translates a WURFL compatible XML file into a python class hierarchy that the pywurfl API can use directly. The default name for the output file is wurfl.py. Type the following at the command line to produce it:
 
 ```
